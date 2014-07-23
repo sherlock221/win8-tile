@@ -1,0 +1,299 @@
+/** win8 磁条的样式 **/
+
+/**
+ * 磁条基本样式
+ */
+.tile {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    float: left; /** 向左浮动 **/
+
+    /** 标准的tile 是120 * 120 **/
+    width: 120px;
+    height: 120px;
+
+    margin: 0 10px 10px 0;
+    padding: 0;
+    cursor: pointer;
+
+    background-color: #eeeeee; /** 背景灰色 **/
+    box-shadow: inset 0px 0px 1px #ffffcc; /** 少许阴影 **/
+}
+/** 磁条边框定义  **/
+.tile:hover {
+    /** 使用outline  不占据布局空间
+     相比border **/
+    outline: #999999 solid 3px;
+}
+.tile.no-outline {
+    /** 不使用轮廓 禁用 **/
+    outline-color: transparent;
+}
+
+/**
+ * 颜色样式需要考虑很多, 背景颜色 轮廓颜色 内部文本颜色等
+ * 定义一套非常灵活的风格, 以便自由选择颜色.
+ */
+
+/**  背景样式 **/
+.bg-red { background-color: #C23916;}
+.bg-blue {background-color: #0097AA;}
+.bg-darkBlue {background-color: #3C7780;}
+.bg-orange{ background-color: #F29500;}
+.bg-green{background-color: #6FA014;}
+.bg-darkGreen{ background-color: #94C849;}
+.bg-darkred{background-color:#BE213E; }
+
+
+/** 内部文本样式 **/
+.fg-red {color: #e51400;}
+.fg-green {color: #60a917;}
+.fg-darkBlue {color: #16499a;}
+
+/** 轮廓样式  **/
+.ol-red {background-color: #e51400;}
+.ol-green {background-color: #60a917;}
+.ol-darkBlue {background-color: #16499a;}
+
+/** 边框颜色样式  **/
+.bd-red {background-color: #C23916;}
+.bd-green {background-color: #60a917;}
+.bd-darkBlue {background-color: #16499a;}
+
+
+/**
+ * 尺寸样式
+ * 1. 标准大小 120 * 120
+ * 2. 50%大小  55 * 55
+ * 3. 2倍大小 120 * 250
+ * 4. 3倍大小 120 * 380.
+ * 5  4倍大小 120 * 510
+ */
+
+/** 水平部分 **/
+.tile.half{  width: 55px; height: 55px;}
+.tile.double{ width: 250px;}
+.tile.triple{width: 380px;}
+.tile.quadro{width: 510px;}
+
+/** 垂直部分 **/
+.tile.double-vertical{
+    height: 250px;
+}
+.tile.triple-vertical{
+    height: 380px;
+}
+.tile.quadro-vertical{
+    height: 510px;
+}
+
+
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+/**
+ * 状态样式
+ */
+
+/** 选中状态 **/
+.tile.selected{
+    /*border : 4px solid #4390df;*/
+    /** 推荐使用 outline  **/
+    outline : 3px solid #4390df;
+}
+
+
+.tile.selected:after{
+    position: absolute;
+    display: block;
+    border-top:28px solid #4390df;
+    border-left: 28px solid transparent;
+    right: 0;
+    top: 0;
+    content: "";
+    z-index: 101;
+}
+.tile.selected:before{
+    position: absolute;
+    display: block;
+    content: '\e013';
+    color: #ffffff;
+    right: 0;
+    top: 0;
+    font-family: 'Glyphicons Halflings';
+    font-size: 10pt;
+    font-weight: normal;
+    z-index: 102;
+}
+
+/**
+ * 特殊样式
+ */
+
+/** 主内容区  满父容器**/
+.tile-content{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+/** 使用内边距 **/
+.tile .tile-content.padded{
+    padding: 10px;
+}
+
+/** 100%图片**/
+.tile .tile-content.image{
+    width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+}
+
+/** icon 定义 **/
+
+/** .tile-content 上应用icon 子元素icon/glyphicon开头 **/
+.tile .tile-content.icon [class='icon-'],
+.tile .tile-content.icon [class='glyphicon-'],
+.tile .tile-content.icon img
+{
+    line-height: 56px;
+    width: 56px;
+    height: 56px;
+    font-size: 48px;
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -28px;
+    margin-left: -28px;
+}
+
+/** brand 样式  **/
+
+.tile .brand{
+    position: absolute;
+    bottom: 0; /** 贴底部 **/
+    left: 0;
+    right: 0;
+    min-height: 29px; /** 最小高度 **/
+    margin : 0 ;
+}
+.tile .brand.opacity{
+    opacity: .7;
+}
+.tile .brand:before,
+.tile .brand:after{
+    display: table;
+    content: '';
+}
+.tile .brand:after{ clear:  both;}
+
+
+/** label text  通用 **/
+
+.tile .brand .label,
+.tile .brand .text{
+    float: left;
+    display: block;
+    font-size: 10pt;
+    margin: 5px 20px 2px 5px;
+    background: transparent;
+    color: #ffffff;
+}
+
+.tile .brand .text{
+    margin: 4px 5px;
+    font-size: 8pt;
+    line-height: 10pt;
+}
+
+.tile .brand .badge{
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    width: 29px;
+    height: 29px;
+    text-align: center;
+    color: #ffffff;
+    padding: 5px;
+    margin: 0;
+    vertical-align: middle;
+    display: block;
+    font-size: 10pt;
+    border-radius: 0 ;
+}
+
+
+/**
+ * 并列元素，嵌套 样式
+ * 一组磁贴放在一起的效果 tile-group
+ */
+
+.tile-group{
+    float:  left;
+    display:  block;
+    /** 40px 给tile 标题留出位置 10px左边的间距**/
+    padding: 40px 0 0px 10px;
+    position: relative;
+    color: #ffffff;
+}
+
+.tile-group .tile-group-title{
+    font-size: 18px;
+    line-height: 20px;
+    position: absolute;
+    top: 10px;  /** 绝对定位 **/
+    color: inherit;
+}
+
+/** win8 风格磁铁组 一般默认水平显示  2个 4个 6个
+ * 一般不会超过7个  通过单独样式控制水平方向宽度，
+ *以便让多余的磁铁换行显示
+ **/
+
+.tile-group.two,
+.tile-group.double{width: 270px;  /** 250+10 **/ }
+
+.tile-group.three,
+.tile-group.triple{
+    width: 400px;  /** 380 + 10  **/
+}
+
+.tile-group.four,
+.tile-group-quadro{
+    width: 530px; /** 510+10 **/
+}
+
+.tile-group.five { width: 660px;}
+.tile-group.six {width:  790px;}
+.tile-group.seven{ width: 920px}
+
+
+
+
+
+body{
+    font-family: "Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+    margin: 0px;
+    height: 100%;
+    font-size: 100%;
+    cursor: move;
+    overflow-x: hidden;
+    background-image: url('../img/2.jpg');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-color: #000000;
+    background-attachment: fixed;
+    background-size: cover;
+}
